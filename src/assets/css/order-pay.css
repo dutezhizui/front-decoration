@@ -1,0 +1,371 @@
+/**
+ * Author dmk
+ **/
+body{
+	background: #F5F5F5;
+}
+
+/**订单支付 start**/
+.user-message{
+	background: #e9f6ff;
+	padding: 15px;
+	color: #383838;
+	font-size: 16px;
+}
+.order-coun{
+	background: #FFF;
+	padding: 0 13px;
+}
+
+.order-title{
+	padding: 10px 0;
+	color: #383838;
+	
+	font-size: 0px;
+}
+.order-title .coun-pic{
+	height: 30px;
+	width: 30px;
+	overflow: hidden;
+	display: inline-block;
+	vertical-align: middle;
+	margin-right: 10px;
+	border-radius: 100%;
+	border: 1px solid #D9D9D9;
+}
+
+.order-title .coun-pic img{
+	width: 100%;
+}
+.order-title  span{
+	font-size: 15px;
+	display: inline-block;
+	vertical-align: middle;
+}
+.order-coun .order-body{
+	position: relative;
+	padding: 10px 55px 10px 90px;
+	height:85px;
+	border-bottom: 1px solid #d9d9d9;
+}
+
+.order-coun  .order-body .order-img{
+	position: absolute;
+	left: 0px;
+	top: 10px;
+	width: 85px;
+	height: 65px;
+	border: 1px solid #e6e6e6;
+	overflow: hidden;
+}
+.order-coun .order-body .order-img img{
+	width: 100%;
+}
+.order-coun .order-body:before{
+	content: "";
+	display: inline-block;
+	vertical-align: middle;
+	height: 65px;
+}
+.order-coun .order-message{
+	display: inline-block;
+	vertical-align: middle;
+	width: 90%;
+}
+.order-coun .order-message p{
+	font-size: 16px;
+	color: #383838;
+	margin-bottom: 5px;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+.order-coun .order-message span{
+	color: #999;
+	font-size: 14px;
+}
+.order-coun .order-price{
+	color: #FA4F4F;
+	position: absolute;
+	right: 0px;
+	top: 50%;
+	font-size: 12px;
+	-webkit-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+
+}
+.order-price span{
+	font-size: 20px;
+	
+}
+.order-pay-box{
+	margin:13px 0;
+	background: #fff;
+	padding: 0 13px;
+}
+.order-pay-list{
+	background: #FFF;
+	padding: 10px 13px;
+	border-bottom: 1px solid #D9D9D9;
+}
+.order-pay-list:last-child{
+	border-bottom: 0px;
+}
+.order-pay-list img{
+	width: 90px;
+}
+.order-pay-box .order-pay-list {
+	padding: 0px;
+}
+.order-pay-box .order-pay-list label{
+	display: block;
+	position: relative;
+	padding: 10px 0;
+}
+
+.order-pay-box .order-pay-list label:after{
+	content:'\e411';
+	font-family: Muiicons;
+	position: absolute;
+	right: 0px;
+	top: 50%;
+	color: #9c9c9c;
+	font-size: 24px;
+	 -webkit-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+
+}
+.order-pay-box .order-pay-list input[type=radio]{
+	display: none;
+}
+.order-pay-box .order-pay-list input[type=radio]:checked~label:after{
+	content:'\e441';
+	color: #004b92;
+}
+
+.order-coupon.order-pay-list{
+	padding: 0;
+}
+.order-coupon a{
+	display: block;
+	padding: 15px 13px;
+	font-size: 16px;
+	color: #383838;
+}
+.order-coupon a span{
+	color: #999;
+	float: right;
+}
+
+.mui-bar.full-footer{
+	box-shadow: none;
+	height: 47px;
+	background: #FFF;
+	border-top: 1px solid #D9D9D9;
+}
+.price-total{
+	line-height: 47px;
+	float: left;
+	font-size: 13px;
+	padding: 0 13px;
+}
+.price-total label{
+	color: #FA4F4F;
+}
+.price-total span{
+	font-size: 20px;
+}
+.full-footer a{
+	display: block;
+	float: right;
+	line-height: 50px;
+	color: #FFF;
+	background: #FA4F4F;
+	width: 40%;
+	text-align: center;
+	font-size: 16px;
+}
+
+.title-box{
+	padding: 0px 13px 15px;
+	font-size: 16px;
+	color: #666;
+}
+.contact-box{
+	padding:  0 13px;
+	background: #FFF;
+	margin-bottom: 70px;
+}
+.contact-box li{
+	border-bottom: 1px solid #D9D9D9;
+	position: relative;
+	padding-left: 30px;
+	padding: 8px 0;
+}
+.contact-box li:last-child{
+	border-bottom: 0px;
+}
+.contact-box li span{
+	position: absolute;
+	left: 0px;
+	top: 50%;
+	margin-top: -8px;
+	font-size: 15px;
+	color: #333;
+	
+}
+.contact-box li input{
+	/*border: 0px;*/
+	margin-bottom: 0px;
+	font-size: 14px;
+	font-family: "微软雅黑";
+	height: 35px;
+	padding: 10px 5px 10px 40px;
+	text-align: right;
+	border: 0px;
+	color: #999;
+}
+.order-layer{
+	position: fixed;
+	top: 0px;
+	bottom: 0px;
+	left: 0px;
+	right: 0px;
+	background: rgba(0,0,0,0.5);
+	z-index:7;
+}
+.order-layer-body{
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	background: #FFF;
+	border-radius: 10px;
+	z-index: 10;
+	-webkit-transform: translateX(-50%) translateY(-50%);
+    -moz-transform: translateX(-50%) translateY(-50%);
+    -o-transform: translateX(-50%) translateY(-50%);
+    -ms-transform: translateX(-50%) translateY(-50%);
+    transform: translateX(-50%) translateY(-50%);
+}
+.order-layer-text{
+	padding: 20px 10px;
+	min-width: 220px;
+	text-align: center;
+}
+.order-layer-body a{
+	display: block;
+	text-align: center;
+	line-height: 35px;
+	border-top: 1px solid #D9D9D9;
+	color: #333;
+	font-size: 15px;
+}
+.app-download{
+	position: fixed;
+	bottom: 0px;
+	left: 0px;
+	right: 0px;
+	padding: 20px 13px;
+	text-align: center;
+	background: #FFF;
+	z-index: 50;
+}
+.app-download span{
+	display: block;
+	font-size: 16px;
+	color: #333;
+}
+.app-download  a{
+	display: block;
+	line-height: 35px;
+	width: 220px;
+	background: #ff7f00;
+	color: #FFF;
+	font-size: 15px;
+	margin: 15px auto 18px;
+	border-radius: 3px;
+}
+.app-download  a:before{
+	content: "\e627";
+	font-family: "iconfont";
+	font-size: 22px;
+	display: inline-block;
+	vertical-align: middle;
+	margin-right: 2px;
+}
+.app-download  a:active{
+	background: #e67300 !important;
+	color: rgba(255,255,255,0.6) !important;
+}
+/**订单支付 end**/
+/**支付成功 start**/
+.order-succeed{
+	position: absolute;
+	top: 25%;
+	left: 0px;
+	right: 0px;
+	text-align: center;
+}
+.succeed-title{
+	font-size: 18px;
+	color: #333;
+}
+.succeed-title:before{
+	content: "\e67c";
+	font-family: "iconfont";
+	color: #72bb38;
+	font-size: 30px;
+	display: inline-block;
+	vertical-align: middle;
+	margin-right: 12px;
+}
+.order-succeed p{
+	margin: 20px 0 30px;
+	font-size: 15px;
+}
+.order-succeed a{
+	display: block;
+	margin: 0 auto;
+	background: #ff7f00;
+	color: #fff;
+	border-radius: 3px;
+	line-height: 40px;
+	font-size: 15px;
+	width: 220px;
+}
+.download{
+	position: absolute;
+	bottom: 0px;
+	left: 0px;
+	right: 0px;
+	padding: 18px 13px;
+	background: #3fbff0;
+	color: #FFF;
+}
+.download span{
+	font-size: 18px;
+	display: block;
+	color: #FFF;
+}
+.download span:before{
+	content: "\e627";
+	font-family: "iconfont";
+	font-size: 25px;
+	display: inline-block;
+	vertical-align: top;
+	margin-top: 4px;
+}
+.download p{
+	color: #fff;
+	margin-top: 5px;
+	line-height: 20px;
+	padding-left: 28px;
+}
+/**支付成功 end**/
