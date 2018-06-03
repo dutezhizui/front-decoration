@@ -80,7 +80,7 @@
         param.append('headerImage',this.postHeaderImg)
         this.$http({
           method: 'post',
-          url: process.env.API_HOST+'upload/v1/uploadHeadImage',
+          url: 'upload/v1/uploadHeadImage',
           data: this.$qs.stringify({
             headerImage:this.headerImage
           }),
@@ -101,7 +101,7 @@
       register () {
         this.$http({
           method: 'post',
-          url: process.env.API_HOST+'user/v1/register',
+          url: 'user/v1/register',
           data: {
             headUrl: this.headerImageUrl,
             verifyCode: this.verifyCode,
@@ -124,6 +124,9 @@
         })
       },
       getCode(){
+        let param = new URLSearchParams();
+        param.append("phone", this.phone);
+        param.append("codeType", 2);
         if (!this.timer) {
           this.count = TIME_COUNT;
           this.show = false;
@@ -139,11 +142,8 @@
         }
         this.$http({
           method: 'post',
-          url: process.env.API_HOST+'sms/v1/send',
-          data: {
-            phone: this.phone,
-            codeType: 2
-          }
+          url: 'sms/v1/send',
+          data: param
         }).then((response) => {
           if (response.data.code === 200) {
             this.$vux.toast.text('发送成功')

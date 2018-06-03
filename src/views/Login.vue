@@ -76,7 +76,7 @@
         if (this.logWay===true){
           this.$http({
             method: 'post',
-            url: process.env.API_HOST+'user/v1/commonLogin',
+            url: 'user/v1/commonLogin',
             data: {
               account: this.account,
               password: this.password
@@ -97,7 +97,7 @@
         } else {
           this.$http({
             method: 'post',
-            url: process.env.API_HOST+'user/v1/fastLogin',
+            url: 'user/v1/fastLogin',
             data: {
               phone: this.phone,
               verifyCode: this.verifyCode
@@ -134,7 +134,7 @@
         }
         this.$http({
           method: 'post',
-          url: process.env.API_HOST+'sms/v1/send',
+          url: 'sms/v1/send',
           data: {
             phone: this.phone,
             codeType: 1

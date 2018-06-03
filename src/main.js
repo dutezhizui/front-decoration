@@ -14,7 +14,7 @@ import { DatetimePlugin, CloseDialogsPlugin, ConfigPlugin, BusPlugin, LocalePlug
 Vue.use(AlertPlugin)
 Vue.use(ToastPlugin)
 FastClick.attach(document.body)
-
+axios.defaults.baseURL = 'http://www.yaojiaoyi.net/api/'
 Vue.config.productionTip = false
 axios.interceptors.request.use(
   config => {
