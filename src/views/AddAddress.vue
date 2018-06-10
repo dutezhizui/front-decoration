@@ -24,30 +24,39 @@
       return {
         addressData: ChinaAddressV4Data,
         name: '',//收件人
-        mobile: '',//手机号
+        phone: '',//手机号
         province: '',//省，
         city: '',//市
         country: '',//区
         region: [],//地区
         address: '',//详细地址
         isDefault: false,
+        detailAddress: ''
       }
     },
     methods: {
       handleCheckedItem() {
-
+        console.log("isdefault=="+this.isDefault)
+        if (this.isDefault==true){
+          this.isDefault=true
+        }else {
+          this.isDefault=false
+        }
       },
       handleAddAddress() {
         this.$http({
           method: 'post',
-          url: 'api/address/v1/addAddress',
+          url: 'address/v1/addAddress',
           data: {
+            region: this.region,
             name: this.name,
             phone: this.phone,
-            detailAddress: this.detailAddress
+            detailAddress: this.detailAddress,
+            isDefault: this.isDefault
           }
         }).then((response) => {
           if (response.data.code === 200) {
+            this.$vux.toast.text('添加地址成功')
             this.$router.push({
               path: '/MyAddress'
             })

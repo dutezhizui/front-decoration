@@ -9,6 +9,28 @@
 <script>
   import { Flexbox, FlexboxItem, Blur } from 'vux'
   export default {
+    created(){
+      console.log("created==="+localStorage.getItem('token'))
+      this.getUserInfo()
+    },
+    methods: {
+      getUserInfo() {
+        let param = new URLSearchParams();
+        this.$http({
+          method: 'get',
+          url: 'user/v1/userInfo',
+          data: param
+        }).then((response) => {
+          if (response.data.code === 200) {
+            this.url=response.data.data.headUrl;
+          } else {
+            console.log("get userInfo error")
+          }
+        }).catch(function (response) {
+          console.log("get userInfo error")
+        })
+      }
+    },
     components: {
       Blur,
       Flexbox,

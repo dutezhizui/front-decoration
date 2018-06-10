@@ -1,33 +1,48 @@
 <template>
   <div>
-    <div style="padding: 15px;">
-      <div>
-        <x-header>注册</x-header>
-        <group label-width="5.5em" label-margin-right="2em"  label-align="justify">
-          <cell title="头像">
-            <cropper title="头像" :headerImage="headerImage"  @getHeaderImage="newHeaderImage"></cropper>　
-          </cell>
-          <x-input title="手机号码" mask="99999999999" v-model="phone" :max="13" required is-type="china-mobile"></x-input>
-          <x-input title="" class="weui-vcode" placeholder="请输入验证码" v-model="verifyCode">
-            <x-button slot="right" type="primary" mini :disabled="!show" @click.native="getCode()">
-              <span v-show="show">获取验证码</span>
-              <span v-show="!show" class="count">{{count}} s</span>
-            </x-button>
-          </x-input>
-          <x-input title="姓名"  v-model="userName" required  :max="10"></x-input>
-          <x-input title="密码" type="password" :max="10" required  :min="6" v-model="password"></x-input>
-          <x-input title="确认密码" type="password" :max="10" required  :min="6" v-model="confirmPassword"></x-input>
-          <popup-radio title="身份" :options="userTypeOptions" v-model="userType" placeholder="请选择"></popup-radio>
-          <x-button text="注册" type="primary" style="margin-top:1cm;border-radius:99px;" @click.native="register()"></x-button>
-        </group>
-      </div>
-    </div>
+    <x-header>注册</x-header>
+    <group label-width="5.5em" label-margin-right="2em" label-align="justify">
+      <cell title="头像">
+        <cropper title="头像" :headerImage="headerImage" @getHeaderImage="newHeaderImage"></cropper>
+      </cell>
+      <x-input title="手机号码" mask="99999999999" v-model="phone" :max="13" required is-type="china-mobile"></x-input>
+      <x-input title="" class="weui-vcode" placeholder="请输入验证码" v-model="verifyCode">
+        <x-button slot="right" type="primary" mini :disabled="!show" @click.native="getCode()">
+          <span v-show="show">获取验证码</span>
+          <span v-show="!show" class="count">{{count}} s</span>
+        </x-button>
+      </x-input>
+      <x-input title="姓名" v-model="userName" required :max="10"></x-input>
+      <x-input title="密码" type="password" :max="10" required :min="6" v-model="password"></x-input>
+      <x-input title="确认密码" type="password" :max="10" required :min="6" v-model="confirmPassword"></x-input>
+      <popup-radio title="身份" :options="userTypeOptions" v-model="userType" placeholder="请选择"></popup-radio>
+      <x-button text="注册" type="primary" style="margin-top:1cm;border-radius:99px;"
+                @click.native="register()"></x-button>
+    </group>
   </div>
 </template>
 
 <script>
-  import {ButtonTab, GroupTitle, Group, ButtonTabItem, Divider, XInput, XButton, Cell, XImg,Selector,XHeader ,PopupRadio,md5,Toast,ToastPlugin,Alert} from 'vux'
+  import {
+    ButtonTab,
+    GroupTitle,
+    Group,
+    ButtonTabItem,
+    Divider,
+    XInput,
+    XButton,
+    Cell,
+    XImg,
+    Selector,
+    XHeader,
+    PopupRadio,
+    md5,
+    Toast,
+    ToastPlugin,
+    Alert
+  } from 'vux'
   import cropper from "@/components/cropper"
+
   const TIME_COUNT = 60;
   export default {
     data() {
@@ -67,38 +82,40 @@
       XImg,
       Selector,
       XHeader,
-      cropper,md5,PopupRadio,Alert,
-      Toast,ToastPlugin
+      cropper, md5, PopupRadio, Alert,
+      Toast, ToastPlugin
     },
     methods: {
-      newHeaderImage(newImg){
+      newHeaderImage(newImg) {
         this.headerImage = newImg;
         this.postImg()
       },
-      postImg () {
+      postImg() {
         let param = new FormData()  // 创建form对象
-        param.append('headerImage',this.postHeaderImg)
+        param.append('headerImage', this.postHeaderImg)
         this.$http({
           method: 'post',
           url: 'upload/v1/uploadHeadImage',
           data: this.$qs.stringify({
-            headerImage:this.headerImage
+            headerImage: this.headerImage
           }),
-          withCredentials:true,
-        }).then((res)=>{
+          withCredentials: true,
+        }).then((res) => {
           let response = res;
-          console.log("response="+response.data.code)
-          if(response.data.code == 200){
+          console.log("response=" + response.data.code)
+          if (response.data.code == 200) {
+            console.log("imageUrl="+response.data.data)
             this.$vux.toast.text('上传成功')
-            this.headerImageUrl=response.data.data;
-          }else{
+            this.headerImageUrl = response.data.data;
+          } else {
             this.$vux.toast.text('上传失败')
           }
         }).catch(function () {
           this.$vux.toast.text('上传失败')
         });
       },
-      register () {
+      register() {
+        console.log("headUrl==="+this.headerImageUrl)
         this.$http({
           method: 'post',
           url: 'user/v1/register',
@@ -123,7 +140,7 @@
           console.error(response)
         })
       },
-      getCode(){
+      getCode() {
         let param = new URLSearchParams();
         param.append("phone", this.phone);
         param.append("codeType", 2);
@@ -159,20 +176,22 @@
 </script>
 
 <style>
-  *{
+  * {
     margin: 0;
     padding: 0;
   }
+
   #demo #button {
     position: absolute;
     right: 10px;
     top: 10px;
     width: 80px;
     height: 40px;
-    border:none;
+    border: none;
     border-radius: 5px;
-    background:white;
+    background: white;
   }
+
   #demo .show {
     width: 100px;
     height: 100px;
@@ -181,6 +200,7 @@
     border-radius: 50%;
     border: 1px solid #d5d5d5;
   }
+
   #demo .picture {
     width: 100%;
     height: 100%;
@@ -189,6 +209,7 @@
     background-repeat: no-repeat;
     background-size: cover;
   }
+
   #demo .container {
     z-index: 99;
     position: fixed;
@@ -197,16 +218,17 @@
     top: 0;
     right: 0;
     bottom: 0;
-    background:rgba(0,0,0,1);
+    background: rgba(0, 0, 0, 1);
   }
 
   #demo #image {
     max-width: 100%;
   }
 
-  .cropper-view-box,.cropper-face {
+  .cropper-view-box, .cropper-face {
     border-radius: 50%;
   }
+
   /*!
    * Cropper.js v1.0.0-rc
    * https://github.com/fengyuanchen/cropperjs

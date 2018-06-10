@@ -14,7 +14,7 @@ import { DatetimePlugin, CloseDialogsPlugin, ConfigPlugin, BusPlugin, LocalePlug
 Vue.use(AlertPlugin)
 Vue.use(ToastPlugin)
 FastClick.attach(document.body)
-axios.defaults.baseURL = 'http://www.yaojiaoyi.net/api/'
+axios.defaults.baseURL = 'http://localhost:8081/api/'
 Vue.config.productionTip = false
 axios.interceptors.request.use(
   config => {
@@ -22,11 +22,9 @@ axios.interceptors.request.use(
       config.data = qs.stringify(config.data)
       console.log("data==="+config.data)
     }*/
-
     if (localStorage.getItem('token')) {
       config.headers.Authorization = localStorage.getItem('token')
     }
-    console.log(config.headers.Authorization)
     return config
   },
   err => {

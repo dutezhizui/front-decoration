@@ -7,11 +7,10 @@
             <cropper title="头像" :headerImage="headerImage"  @getHeaderImage="newHeaderImage"></cropper>　
           </cell>
           <x-input title="手机号码" mask="999 9999 9999" disabled :max="13" is-type="china-mobile" v-model="phone"></x-input>
-          <selector title="性别"  :options="sex"></selector>
+          <popup-radio title="性别" :options="sexOption" v-model="sex" placeholder="请选择"></popup-radio>
           <x-input title="真实姓名"  v-model="userName" :max="10"></x-input>
           <x-input title="邮箱" name="email" is-type="email" v-model="email"></x-input>
-          <selector title="身份" :options="userType"></selector>
-          <x-button text="确认" type="primary" style="margin-top:1cm;border-radius:99px;"></x-button>
+          <x-button text="确认" type="primary" @click.native="updateUserInfo()" style="margin-top:1cm;border-radius:99px;"></x-button>
         </group>
       </div>
   </div>
@@ -21,14 +20,26 @@
   import {ButtonTab, GroupTitle, Group, ButtonTabItem, Divider, XInput, XButton, Cell, XImg,Selector,XHeader } from 'vux'
   import cropper from "@/components/cropper"
   export default {
+    created() {
+      this.getUserInfo()
+    },
     data() {
       return {
         phone: '',
         userName: '',
         email: '',
         headerImage: '',
-        userType: [{ key: 1, value: '工人' },{ key: 2, value: '业主' },{ key: 3, value: '建材商' }],
-        sex: [{ key: 0, value: '未知' },{ key: 1, value: '男' },{ key: 2, value: '女' }]
+        sex: '',
+        sexOption: [{
+          key: '1',
+          value: '男'
+        }, {
+          key: '2',
+          value: '女'
+        }, {
+          key: '0',
+          value: '未知'
+        }],
       }
     },
     components: {
@@ -48,6 +59,71 @@
     methods: {
       newHeaderImage(newImg){
         this.headerImage = newImg;
+        this.postImg();
+      },
+      postImg() {
+        let param = new FormData()  // 创建form对象
+        param.append('headerImage', this.postHeaderImg)
+        this.$http({
+          method: 'post',
+          url: 'upload/v1/uploadHeadImage',
+          data: this.$qs.stringify({
+            headerImage: this.headerImage
+          }),
+          withCredentials: true,
+        }).then((res) => {
+          let response = res;
+          if (response.data.code == 200) {
+            this.$vux.toast.text('上传成功')
+            this.headerImageUrl = response.data.data;
+          } else {
+            this.$vux.toast.text('上传失败')
+          }
+        }).catch(function () {
+          this.$vux.toast.text('上传失败')
+        });
+      },
+      getUserInfo() {
+        let param = new URLSearchParams();
+        this.$http({
+          method: 'get',
+          url: 'user/v1/userInfo',
+          data: param
+        }).then((response) => {
+          if (response.data.code === 200) {
+            this.headerImage=response.data.data.headUrl;
+            this.phone=response.data.data.phone;
+            this.userName=response.data.data.userName;
+            this.sex=response.data.data.sex;
+            this.email=response.data.data.email;
+
+          } else {
+            console.log("get userInfo error")
+          }
+        }).catch(function (response) {
+          console.log("get userInfo error")
+        })
+      },
+      updateUserInfo() {
+        this.$http({
+          method: 'post',
+          url: 'user/v1/updateUserInfo',
+          data: {
+            sex: this.sex,
+            email: this.email,
+            userName: this.userName,
+            headUrl: this.headerImage
+          }
+        }).then((response) => {
+          if (response.data.code === 200) {
+            this.$vux.toast.text('修改成功')
+            this.$router.push({path: 'mine'})
+          } else {
+            console.log("get userInfo error")
+          }
+        }).catch(function (response) {
+          console.log("get userInfo error")
+        })
       }
     }
   }

@@ -74,16 +74,18 @@
       },
       login: function () {
         if (this.logWay===true){
+          let param = new URLSearchParams();
+          param.append("account", this.account);
+          param.append("password", this.password);
           this.$http({
             method: 'post',
             url: 'user/v1/commonLogin',
-            data: {
-              account: this.account,
-              password: this.password
-            }
+            data: param
           }).then((response) => {
             if (response.data.code === 200) {
-              localStorage.setItem('token', response.data.data.token)
+              console.log("response.data.data.token=="+response.data.data)
+              localStorage.setItem('token', response.data.data)
+              console.log("localStorage.getItem('token')"+localStorage.getItem('token'))
               this.$router.push({path: 'mine'})
             } else {
               this.$vux.toast.text('登录失败')
@@ -156,52 +158,4 @@
     }
   }
 </script>
-<style lang="css" >
-  body{
-    background-color: #fff;
-  }
 
-    .logoPic{
-      width:100%;
-      height:4.25rem;
-      text-align: center;
-      display:block;
-      margin-bottom:0.7rem;
-    }
-    .borderLeft {
-      float:right;
-      display: block;
-      font-size: 12px;
-      height:12px;
-      line-height:12px;
-      color:#00BBCC;
-      font-weight:600;
-      margin:0.3rem 1.5rem 0 0;
-      font-family:'PingFangSC-Regular';
-    }
-    .weui-cells{
-      width:60%;
-      margin-left:20%;
-      font-size:14px;
-
-    }
-    .borderTop{
-      border-top:none;
-    }
-
-      .success{
-        color:#00CCC2;
-        border-bottom:2px solid #81E8E2;
-      }
-
-    .btn{
-      color:#00BBCC;
-      font-family: PingFangSC-Regular;
-      background-color: #fff;
-      border:none;
-    }
-    .grayBtn{
-      color:#B3B3B3;
-    }
-
-</style>

@@ -10,7 +10,7 @@
       <popup v-model="show7" height="270px" is-transparent>
         <div style="width: 95%;background-color:#fff;height:250px;margin:0 auto;border-radius:5px;padding-top:10px;">
           <div style="padding:20px 15px;">
-            <x-button type="primary">确定</x-button>
+            <x-button type="primary" @click.native="loginQuit()">确定</x-button>
             <x-button @click.native="show7 = false">取消</x-button>
           </div>
         </div>
@@ -41,7 +41,14 @@
     methods: {
       log (str) {
         console.log(str)
+      },
+      loginQuit(){
+        this.show7=false
+        this.$router.push({path: 'index'})
+        localStorage.clear()
+
       }
+
     }
   }
 </script>
