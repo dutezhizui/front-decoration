@@ -17,6 +17,7 @@ import GoodsDetail from '../views/GoodsDetails'
 import OrderConfirm from '../views/OrderConfirm'
 import OrderDetail from '../views/OrderDetails'
 import AddAddress from '../views/AddAddress'
+import UpdateAddress from '../views/UpdateAddress'
 import MyAddress from '../views/MyAddress'
 import MyCollection from '../views/MyCollection'
 import OrderList from '../views/MyOrders'
@@ -37,6 +38,12 @@ const router = new Router({
       path: '/addAddress',
       name: 'AddAddress',
       component: AddAddress,
+      meta: {requireAuth: true}
+    },
+    {
+      path: '/updateAddress',
+      name: 'UpdateAddress',
+      component: UpdateAddress,
       meta: {requireAuth: true}
     },
     {

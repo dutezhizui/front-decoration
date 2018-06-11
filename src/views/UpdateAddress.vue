@@ -1,6 +1,6 @@
 <template>
   <div class="addAddress">
-    <x-header>新增收货地址</x-header>
+    <x-header>更新收货地址</x-header>
     <group>
       <x-input title="收件人" placeholder="请输入您的姓名" v-model="name" required text-align="left" label-width="80px"></x-input>
       <x-input title="手机号" name="mobile" placeholder="请输入您的手机号" v-model="phone" keyboard="number"
@@ -19,9 +19,10 @@
   import {XInput, Group, XButton, XAddress, ChinaAddressV4Data, CheckIcon, XHeader} from 'vux'
 
   export default {
-    name: 'addAddress',
+    name: 'updateAddress',
     created () {
-
+      console.log("route.params.addressId=="+this.$route.query.addressId)
+      this.getAddressById(this.$route.query.addressId)
     },
     data() {
       return {
@@ -50,7 +51,7 @@
       handleAddAddress() {
         this.$http({
           method: 'post',
-          url: 'address/v1/addAddress',
+          url: 'address/v1/updateAddressInfo',
           data: {
             region: this.region,
             name: this.name,
@@ -73,7 +74,27 @@
         }).catch(function (response) {
           console.error(response)
         })
-      }
+      },
+      getAddressById(addressId) {
+        let param = new URLSearchParams();
+        this.$http({
+          method: 'get',
+          url: 'address/v1/getAddressById',
+          data: param
+        }).then((response) => {
+          if (response.data.code === 200) {
+            this.phone=response.data.data.phone;
+            this.name=response.data.data.name;
+            this.detailAddress=response.data.data.detailAddress;
+            this.region=response.data.data.region;
+            this.isDefault=response.data.data.isDefault;
+          } else {
+            console.log("get userInfo error")
+          }
+        }).catch(function (response) {
+          console.log("get userInfo error")
+        })
+      },
     },
     components: {
       XInput,

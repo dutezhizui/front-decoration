@@ -2,11 +2,11 @@
 	<div class="receiptAddress">
     <x-header>收货地址</x-header>
 		<div class="addres-item" v-for="item in addressList" @click="handleSelect">
-			<p>{{item.name}}&nbsp;&nbsp;{{item.mobile}}</p>
-			<p>{{item.address}}</p>
+			<p>{{item.name}}&nbsp;&nbsp;{{item.phone}}</p>
+			<p>{{item.provice}}{{item.city}}{{item.area}}{{item.detailAddress}}</p>
 			<div>
 				<check-icon :value.sync="item.isDefault" @click.native.stop="handleCheckedItem(item)">默认地址</check-icon>
-				<router-link @click.native.stop to="/AddAddress">编辑</router-link>
+				<router-link @click.native.stop :to="{path:'/addAddress',query:{addressId:item.id}}">编辑</router-link>
 			</div>
 		</div>
 		<x-button type="primary" class="add-btn" @click.native="handleAddAddress">+ 添加收货地址</x-button>
@@ -17,6 +17,9 @@
 	import { CheckIcon, XButton,XHeader } from 'vux'
 	export default {
 		name: 'receiptAddress',
+    created (){
+		  this.getAddressList();
+    },
 		data() {
 			return {
 				checked:true,
@@ -49,7 +52,25 @@
 				this.$router.push({
 					path:'/PerfectOrder'
 				})
-			}
+			},
+      getAddressList() {
+        let param = new URLSearchParams();
+        this.$http({
+          method: 'get',
+          url: 'address/v1/addressList',
+          data: param
+        }).then((response) => {
+          if (response.data.code === 200) {
+            console.log("addressList=="+ response.data.data)
+            this.addressList=response.data.data
+
+          } else {
+            console.log("get userInfo error")
+          }
+        }).catch(function (response) {
+          console.log("get userInfo error")
+        })
+      },
 		},
 		components: {
 			CheckIcon,
