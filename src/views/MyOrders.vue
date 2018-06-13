@@ -71,10 +71,33 @@
 			TabItem,XHeader
 		},
 		methods: {
+      getCode(){
 
+        this.$http({
+          method: 'get',
+          url: 'api/orderList/v1/orderList',
+          data: {
+            phone: this.phone,
+            codeType: 2
+          }
+        }).then((response) => {
+          if (response.data.code === 200) {
+            localStorage.setItem('token', response.data.data.token)
+            this.$router.push({path: 'mine'})
+          } else {
+            this.$vux.toast.text('发送失败')
+            /*this.$vux.alert.show({
+              content: '登录失败'
+            })*/
+          }
+        }).catch(function (response) {
+          console.error(response)
+        })
+      }
 		},
 		mounted(){
-			console.log(this.$route.query)
+			console.log(this.$route.query);
+
 		},
 		filters: {
 			filterState: function(value){

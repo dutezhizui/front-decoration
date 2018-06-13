@@ -83,13 +83,13 @@
             }
           }, 1000)
         }
+        let param = new URLSearchParams();
+        param.append("phone", this.phone);
+        param.append("codeType", 2);
         this.$http({
           method: 'post',
           url: 'api/sms/v1/send',
-          data: {
-            phone: this.phone,
-            codeType: 2
-          }
+          data: param
         }).then((response) => {
           if (response.data.code === 200) {
             localStorage.setItem('token', response.data.data.token)
